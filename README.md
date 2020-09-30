@@ -10,4 +10,4 @@ This software is build taking into consideration the security of data.
 Eg: Billing counter doesn't have access to product information. Only manager can have access to all the data.
 
 <h2>Efficiency</h2>
-This software uses Hashing with chaing data structure for fast response.
+This software uses Hashing with chaining data structure for fast response.
