@@ -1,25 +1,21 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-/*
-    I had used hashing with chaining data structure.
-    In which linked_list class contains all the functions of a singly linked list associate with each table bucket.
-    Table is the array of different linked list as in hashing with chaining data structure.
-    Hash table of product items is stored in Inventory class.
-    Hash table of customer item is stored in Customer class.
-    Billing class performs same work as done by billing counter.
-    Manager class uploads product data and also modify it.
-*/
+#include<bits/stdc++.h>
 using namespace std;
+/*
+    -> I had used hashing with chaining data structure.
+    -> In which linked_list class contains all the functions of a singly linked list associate with each table bucket.
+    -> Table is the array of different linked list as in hashing with chaining data structure.
+    -> Hash table of product items is stored in Inventory class.
+    -> Hash table of customer item is stored in Customer class.
+    -> Billing class performs same work as done by billing counter.
+    -> Manager class uploads product data and also modify it.
+*/
 struct node
 {
      long int id;
      string name;
      float rate;
      int quantity;
-    float points;
+     float points;
      node *next;
 };
 //----------------------------------------------------------------------------------------------------------
@@ -30,15 +26,15 @@ class linked_list
     public:
     linked_list()
     {
-         head = NULL;
-         tail = NULL;
-     }
+        head = NULL;
+        tail = NULL;
+    }
     node* gethead()
     {
         return head;
-     }
+    }
 
-    void linkedList_addProduct(long int id,string name,float rate,int quantity)//adds new product item in sorted manner
+    void linkedList_addProduct(long int id,string name,float rate,int quantity)//adds new product item 
     {
          node *tmp1 = new node;
          tmp1->id = id;
@@ -47,41 +43,19 @@ class linked_list
          tmp1->quantity=quantity;
          tmp1->next = NULL;
 
-         node *tmp;
-         tmp=head;
-         node *prev;
-         prev=tmp;
-         if(tmp == NULL)
+         if(head == NULL)
          {
-             head = tmp1;
-             tail = tmp1;
+            head = tmp1;
+            tail = tmp1;
          }
          else
          {
-             if((tmp->id) > id)
-             {
-                 tmp1->next=tmp;
-                 head=tmp1;
-             }
-             else
-             {
-                 while(tmp!=NULL)
-                 {
-                     if(tmp->id > id)
-                     {
-                         break;
-                     }
-                     prev=tmp;
-                     tmp=tmp->next;
-                 }
-                 prev->next=tmp1;
-                 tmp1->next=tmp;
-             }
-
+            tail->next=tmp1;
+            tail=tail->next;
          }
 
      }
-    void linkedList_addCustomer(long int id,string name,float points)      // adds new customer in sorted manner
+    void linkedList_addCustomer(long int id,string name,float points)      // adds new customer
     {
          node *tmp1 = new node;
          tmp1->id = id;
@@ -89,37 +63,15 @@ class linked_list
          tmp1->points = points;
          tmp1->next = NULL;
 
-         node *tmp;
-         tmp=head;
-         node *prev;
-         prev=tmp;
-         if(tmp == NULL)
+         if(head == NULL)
          {
              head = tmp1;
              tail = tmp1;
          }
          else
          {
-             if((tmp->id) > id)
-             {
-                 tmp1->next=tmp;
-                 head=tmp1;
-             }
-             else
-             {
-                 while(tmp!=NULL)
-                 {
-                     if(tmp->id > id)
-                     {
-                         break;
-                     }
-                     prev=tmp;
-                     tmp=tmp->next;
-                 }
-                 prev->next=tmp1;
-                 tmp1->next=tmp;
-             }
-
+            tail->next=tmp1;
+            tail=tail->next;
          }
      }
 
@@ -223,10 +175,7 @@ class linked_list
         node *tmp;
         tmp=head;
         while(tmp->id != id)
-        {
             tmp = tmp->next;
-        }
-
         return tmp->rate;
     }
 
@@ -235,9 +184,7 @@ class linked_list
         node *tmp;
         tmp=head;
         while(tmp!=NULL && tmp->id != id)
-        {
             tmp = tmp->next;
-        }
         tmp->points=tmp->points + points;
     }
     void linkedList_checkCustomerId(long int customerId)
@@ -245,14 +192,9 @@ class linked_list
         node *tmp;
         tmp=head;
         while(tmp!=NULL && tmp->id != customerId)
-        {
             tmp = tmp->next;
-        }
         if(tmp==NULL)
-        {
             linkedList_addCustomer(customerId,to_string(customerId%10),0);
-        }
-
     }
 };
 
@@ -480,7 +422,7 @@ void Billing::make_payment(Inventory I,Customer C,Billing B,long int id)
 
 int main()
 {
-    long INVENTORY_DATASET[100][4] = {
+    long long INVENTORY_DATASET[100][4] = {
     {111100000001,1,100,20},{111100000002,2,110,20},{111100000003,3,120,20},{111100000004,4,130,20},                            {111100000005,5,140,20},{111100000006,6,150,20},{111100000007,7,160,20},{111100000008,8,170,20},                        {111100000009,9,180,20},{111100000010,10,190,20},
     {111100000011,11,200,20},{111100000012,12,210,20},{111100000013,13,220,20},{111100000014,14,230,20},                        {111100000015,15,240,20},{111100000016,16,250,20},{111100000017,17,260,20},{111100000018,18,270,20},                    {111100000019,19,280,20},{111100000020,20,290,20},
     {111100000021,21,300,20},{111100000022,22,310,20},{111100000023,23,320,20},{111100000024,24,330,20},                        {111100000025,25,340,20},{111100000026,26,350,20},{111100000027,27,360,20},{111100000028,28,370,20},                        {111100000029,29,380,20},{111100000030,30,390,20},
@@ -492,7 +434,7 @@ int main()
     {222200001204,81,900,20},{222200001207,82,910,20},{222200001210,83,920,20},{222200001213,84,930,20},{222200001216,85,940,20},{222200001219,86,950,20},{222200001222,87,960,20},{222200001225,88,970,20},{222200001228,89,980,20},{222200001231,90,990,20},
     {222200001234,91,1000,20},{222200001237,92,1010,20},{222200001240,93,1020,20},{222200001243,94,1030,20},{222200001246,95,1040,20},{222200001249,96,1050,20},{222200001252,97,1060,20},{222200001255,98,1070,20},{222200001258,99,1080,20},{222200001261,100,1090,20},
     };
-    long CUSTOMER_DATASET[100][3] = {
+    long long CUSTOMER_DATASET[100][3] = {
     {9400000001,1,0},{9400000002,2,0},{9400000003,3,0},{9400000004,4,0},{9400000005,5,0},{9400000006,6,0},{9400000007,7,0},{9400000008,8,0},{9400000009,9,0},{9400000010,10,0},
     {9400000011,11,0},{9400000012,12,0},{9400000013,13,0},{9400000014,14,0},{9400000015,15,0},{9400000016,16,0},{9400000017,17,0},{9400000018,18,0},{9400000019,19,0},{9400000020,20,0},
     {9400000021,21,0},{9400000022,22,0},{9400000023,23,0},{9400000024,24,0},{9400000025,25,0},{9400000026,26,0},{9400000027,27,0},{9400000028,28,0},{9400000029,29,0},{9400000030,30,0},
@@ -510,8 +452,8 @@ int main()
     Manager M;
     for(int i=0;i<100;i++)
     {
-    M.addProduct(I,INVENTORY_DATASET[i][0],to_string(INVENTORY_DATASET[i][1]),INVENTORY_DATASET[i][2],INVENTORY_DATASET[i][3]);
-    }
+        M.addProduct(I,INVENTORY_DATASET[i][0],to_string(INVENTORY_DATASET[i][1]),INVENTORY_DATASET[i][2],INVENTORY_DATASET[i][3]);
+    }   
 
     //-----------------------Uploading Customer data by Billing object----------------------------
     Customer C;
@@ -538,7 +480,7 @@ int main()
         //M.displayProduct(I);                              // quantity is updated after every payment of bill
         //B.displayCustomer(C);                             // customer points are updated after every payment
 
-    //------------------- Shopping Episode completes ---------------------------------------
+    //--------------------------- Shopping Episode completes ---------------------------------------
 
 
     //-----Below functions are just for checking purpose remove any '//' to make use of it---------
